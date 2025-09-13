@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/12 03:41:01 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 00:03:47 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-static int	handle_arg(const char *s, va_list pm, int n)
+static int	handle_arg(const char *s, va_list pm)
 {
+	int	n;
+
+	n = 0;
 	if (*s == 'c')
 		n += szputchar(va_arg(pm, int));
 	else if (*s == 's')
@@ -32,8 +35,6 @@ static int	handle_arg(const char *s, va_list pm, int n)
 		n += szputhex((unsigned long long)va_arg(pm, unsigned int), *s, 'A');
 	else if (*s == '%')
 		n += write(1, "%", 1);
-	else
-		return (-1);
 	return (n);
 }
 
@@ -47,11 +48,12 @@ int	ft_printf(const char *s, ...)
 	while (*s && n > -1)
 	{
 		if (*s == '%')
-			n = handle_arg(s + 1, pm, n);
+		{
+			s++;
+			n += handle_arg(s, pm);
+		}
 		else
 			n += write(1, s, 1);
-		if (*s == '%')
-			s++;
 		if (*s)
 			s++;
 	}
