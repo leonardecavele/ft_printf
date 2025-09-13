@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:52:07 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/13 00:50:13 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/13 21:59:31 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	szputnbr(t_ll n, int fd)
 	return (sz + 1);
 }
 
-int	szputhex(t_ull n, char c, char a, int fd)
+int	szputhex(t_ull n, char a, int fd)
 {
 	int		sz;
 	char	b[16];
@@ -61,11 +61,8 @@ int	szputhex(t_ull n, char c, char a, int fd)
 
 	sz = 0;
 	i = 0;
-	if (n == 0 && c == 'p')
-	{
-		write(fd, "(nil)", 5);
+	if (sz == -1)
 		return (0);
-	}
 	if (n == 0)
 		return (szputchar('0', fd));
 	while (n)
@@ -84,27 +81,27 @@ int	szputhex(t_ull n, char c, char a, int fd)
 
 int	szputpm(char c, va_list pm, int fd, int n)
 {
-	va_list	cp;
+	va_list	tmp;
 	int		sz;
 
-	va_copy(cp, pm);
+	va_copy(tmp, pm);
 	sz = 0;
 	if (c == 'c')
-		sz += szputchar(va_arg(cp, int), fd);
+		sz += szputchar(va_arg(tmp, int), fd);
 	else if (c == 's')
-		sz += szputnstr(va_arg(cp, const char *), fd, n);
+		sz += szputnstr(va_arg(tmp, const char *), fd, n);
 	else if (c == 'p')
-		sz += szputhex((t_ull)va_arg(cp, void *), c, 'a', fd);
+		sz += szputhex((t_ull)va_arg(tmp, void *), 'a', fd);
 	else if (c == 'd' || c == 'i')
-		sz += szputnbr((int)va_arg(cp, int), fd);
+		sz += szputnbr((int)va_arg(tmp, int), fd);
 	else if (c == 'u')
-		sz += szputnbr((unsigned int)va_arg(cp, unsigned int), fd);
+		sz += szputnbr((unsigned int)va_arg(tmp, unsigned int), fd);
 	else if (c == 'x')
-		sz += szputhex((t_ull)va_arg(cp, unsigned int), c, 'a', fd);
+		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'a', fd);
 	else if (c == 'X')
-		sz += szputhex((t_ull)va_arg(cp, unsigned int), c, 'A', fd);
+		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'A', fd);
 	else if (c == '%')
 		sz += szputchar('%', fd);
-	va_end(cp);
+	va_end(tmp);
 	return (sz);
 }
