@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:03:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 12:26:30 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:36:52 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	zer(t_format *f)
 static int	lpad(t_format *f)
 {
 	int	n;
-	
+
 	n = 0;
 	if (!(f->flags & FMN) && (f->pre > -1 || !(f->flags & FZR)))
 		while (f->pad--)
@@ -67,6 +67,12 @@ int	format(char c, va_list pm, t_format *f)
 	int		n;
 
 	n = 0;
+	if (f->v == 0 && f->pre == 0 && ft_strchr("diuxX", c))
+		f->n = 0;
+	if (c == 's' && f->pre > -1)
+		f->n = min(f->n, f->pre);
+	if (c == 's' && f->pre > -1 && f->pre < 6 && f->v == 0)
+		return (0);
 	if (ft_strchr("di", c) && (f->flags & FPL || f->flags & FSP || f->v < 0))
 		n += 1;
 	if (ft_strchr("xX", c) && (f->flags & FHS) && f->v)

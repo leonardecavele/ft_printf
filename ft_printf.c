@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/13 23:46:03 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:37:15 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static int	parse(char **s, va_list pm, t_format *f)
 		va_copy(tmp, pm);
 		f->v = value(**s, pm);
 		f->n = szputpm(**s, tmp, -1, 2147483647);
-		if (**s == 's' && f->pre > -1)
-			f->n = min(f->n, f->pre);
 		va_end(tmp);
 	}
 	return (n + format(**s, tmp, f));
