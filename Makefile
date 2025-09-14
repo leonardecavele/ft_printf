@@ -5,8 +5,7 @@ AR = ar rcs
 CFLAGS = -MMD -MP -Wall -Wextra -Werror -I.
 
 SRCS = \
-	ft_printf.c \
-	szput.c
+	ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
