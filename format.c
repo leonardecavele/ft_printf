@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:03:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/13 23:46:37 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:26:30 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	prefix(char c, t_format *f)
 		szputchar('+', 1);
 	else if (ft_strchr("di", c) && f->flags & FSP)
 		szputchar(' ', 1);
-	if (c == 'x' && f->flags & FHS && f->v)
+	if (((c == 'x' && f->flags & FHS) || c == 'p') && f->v)
 		szputnstr("0x", 1, 2);
 	else if (c == 'X' && f->flags & FHS && f->v)
 		szputnstr("0X", 1, 2);
@@ -43,7 +43,7 @@ static int	zer(t_format *f)
 static int	lpad(t_format *f)
 {
 	int	n;
-
+	
 	n = 0;
 	if (!(f->flags & FMN) && (f->pre > -1 || !(f->flags & FZR)))
 		while (f->pad--)
@@ -67,14 +67,12 @@ int	format(char c, va_list pm, t_format *f)
 	int		n;
 
 	n = 0;
-	if (c == 'p' && !f->v)
-		return (szputnstr("(nil)", 1, 5));
 	if (ft_strchr("di", c) && (f->flags & FPL || f->flags & FSP || f->v < 0))
 		n += 1;
 	if (ft_strchr("xX", c) && (f->flags & FHS) && f->v)
 		n += 2;
 	if (c == 'p' && f->v)
-		n += szputnstr("0x", 1, 2);
+		n += 2;
 	if (f->pre > -1 && ft_strchr("diuxX", c))
 		f->zer = max(0, f->pre - f->n);
 	f->pad = max(0, f->wid - (n + f->zer + f->n));

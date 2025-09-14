@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:52:07 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/13 21:59:31 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:10:31 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,7 @@ int	szputnstr(const char *s, int fd, int n)
 	int	sz;
 
 	if (!s)
-	{
-		sz = write(fd, "(null)", 6);
-		if (sz > -1)
-			return (sz);
-		return (0);
-	}
+		return (szputnstr("(null)", fd, 6));
 	sz = -1;
 	while (s[++sz] && sz < n)
 		;
@@ -52,7 +47,7 @@ int	szputnbr(t_ll n, int fd)
 	return (sz + 1);
 }
 
-int	szputhex(t_ull n, char a, int fd)
+int	szputhex(t_ull n, char a, int fd, char c)
 {
 	int		sz;
 	char	b[16];
@@ -61,8 +56,8 @@ int	szputhex(t_ull n, char a, int fd)
 
 	sz = 0;
 	i = 0;
-	if (sz == -1)
-		return (0);
+	if (c == 'p' && n == 0)
+		return (szputnstr("(nil)", fd, 5));
 	if (n == 0)
 		return (szputchar('0', fd));
 	while (n)
@@ -91,15 +86,15 @@ int	szputpm(char c, va_list pm, int fd, int n)
 	else if (c == 's')
 		sz += szputnstr(va_arg(tmp, const char *), fd, n);
 	else if (c == 'p')
-		sz += szputhex((t_ull)va_arg(tmp, void *), 'a', fd);
+		sz += szputhex((t_ull)va_arg(tmp, void *), 'a', fd, c);
 	else if (c == 'd' || c == 'i')
 		sz += szputnbr((int)va_arg(tmp, int), fd);
 	else if (c == 'u')
 		sz += szputnbr((unsigned int)va_arg(tmp, unsigned int), fd);
 	else if (c == 'x')
-		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'a', fd);
+		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'a', fd, c);
 	else if (c == 'X')
-		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'A', fd);
+		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'A', fd, c);
 	else if (c == '%')
 		sz += szputchar('%', fd);
 	va_end(tmp);
