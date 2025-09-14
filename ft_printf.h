@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/13 23:43:35 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:07:59 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_printf(const char *s, ...);
 int		szputchar(char c, int fd);
 int		szputnstr(const char *s, int fd, int n);
 int		szputnbr(t_ll n, int fd);
-int		szputhex(t_ull n, char a, int fd);
+int		szputhex(t_ull n, char a, int fd, char c);
 int		szputpm(char c, va_list pm, int fd, int n);
 //format
 int		format(char c, va_list pm, t_format *f);
