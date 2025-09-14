@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:03:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 13:53:31 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:39:35 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	format(char c, va_list pm, t_format *f)
 	prefix(c, f);
 	n += zer(f);
 	if (!(ft_strchr("diuxX", c) && f->pre == 0 && f->v == 0))
-		n += szputpm(c, pm, 1, f->n);
+		n += szputpm_fd(1, pm, c, f->n);
 	n += rpad(f);
 	return (n);
 }
