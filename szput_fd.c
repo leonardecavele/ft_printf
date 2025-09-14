@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   szput.c                                            :+:      :+:    :+:   */
+/*   szput_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:52:07 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 13:55:12 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:37:58 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	szputchar(char c, int fd)
+static int	szputchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 	return (1);
 }
 
-static int	szputnstr(const char *s, int fd, int n)
+static int	szputnstr_fd(int fd, const char *s, int n)
 {
 	int	sz;
 
 	if (!s)
-		return (szputnstr("(null)", fd, 6));
+		return (szputnstr_fd(fd, "(null)", 6));
 	sz = -1;
 	while (s[++sz] && sz < n)
 		;
@@ -31,7 +31,7 @@ static int	szputnstr(const char *s, int fd, int n)
 	return (sz);
 }
 
-static int	szputnbr(t_ll n, int fd)
+static int	szputnbr_fd(t_ll n, int fd)
 {
 	int		sz;
 	char	c;
@@ -40,13 +40,13 @@ static int	szputnbr(t_ll n, int fd)
 	if (n < 0)
 		n = -n;
 	if (n > 9)
-		sz += szputnbr(n / 10, fd);
+		sz += szputnbr_fd(n / 10, fd);
 	c = n % 10 + '0';
-	szputchar(c, fd);
+	szputchar_fd(c, fd);
 	return (sz + 1);
 }
 
-static int	szputhex(t_ull n, char a, int fd, char c)
+static int	szputhex_fd(t_ull n, char a, char c, int fd)
 {
 	int		sz;
 	char	b[16];
@@ -56,9 +56,9 @@ static int	szputhex(t_ull n, char a, int fd, char c)
 	sz = 0;
 	i = 0;
 	if (c == 'p' && n == 0)
-		return (szputnstr("(nil)", fd, 5));
+		return (szputnstr_fd(fd, "(nil)", 5));
 	if (n == 0)
-		return (szputchar('0', fd));
+		return (szputchar_fd('0', fd));
 	while (n)
 	{
 		d = (unsigned int)(n & 0xF);
@@ -69,11 +69,11 @@ static int	szputhex(t_ull n, char a, int fd, char c)
 		n >>= 4;
 	}
 	while (i--)
-		sz += szputchar(b[i], fd);
+		sz += szputchar_fd(b[i], fd);
 	return (sz);
 }
 
-int	szputpm(char c, va_list pm, int fd, int n)
+int	szputpm_fd(int fd, va_list pm, char c, int n)
 {
 	va_list	tmp;
 	int		sz;
@@ -81,21 +81,21 @@ int	szputpm(char c, va_list pm, int fd, int n)
 	va_copy(tmp, pm);
 	sz = 0;
 	if (c == 'c')
-		sz += szputchar(va_arg(tmp, int), fd);
+		sz += szputchar_fd(va_arg(tmp, int), fd);
 	else if (c == 's')
-		sz += szputnstr(va_arg(tmp, const char *), fd, n);
+		sz += szputnstr_fd(fd, va_arg(tmp, const char *), n);
 	else if (c == 'p')
-		sz += szputhex((t_ull)va_arg(tmp, void *), 'a', fd, c);
+		sz += szputhex_fd((t_ull)va_arg(tmp, void *), 'a', c, fd);
 	else if (c == 'd' || c == 'i')
-		sz += szputnbr((int)va_arg(tmp, int), fd);
+		sz += szputnbr_fd((int)va_arg(tmp, int), fd);
 	else if (c == 'u')
-		sz += szputnbr((unsigned int)va_arg(tmp, unsigned int), fd);
+		sz += szputnbr_fd((unsigned int)va_arg(tmp, unsigned int), fd);
 	else if (c == 'x')
-		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'a', fd, c);
+		sz += szputhex_fd((t_ull)va_arg(tmp, unsigned int), 'a', c, fd);
 	else if (c == 'X')
-		sz += szputhex((t_ull)va_arg(tmp, unsigned int), 'A', fd, c);
+		sz += szputhex_fd((t_ull)va_arg(tmp, unsigned int), 'A', c, fd);
 	else if (c == '%')
-		sz += szputchar('%', fd);
+		sz += szputchar_fd('%', fd);
 	va_end(tmp);
 	return (sz);
 }
