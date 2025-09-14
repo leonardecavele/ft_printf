@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 13:54:47 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:39:04 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ typedef unsigned char		t_u8;
 typedef unsigned long long	t_ull;
 typedef long long			t_ll;
 
-# define FMN 1	//M_F 1
-# define FZR 2	//Z_F 2
-# define FHS 4	//H_F 4
-# define FPL 8	//P_F 8
-# define FSP 16	//S_F 16
+# define FMN 1
+# define FZR 2
+# define FHS 4
+# define FPL 8
+# define FSP 16
 
 typedef struct t_format
 {
@@ -38,8 +38,8 @@ typedef struct t_format
 }			t_format;
 
 int		ft_printf(const char *s, ...);
-//szput
-int		szputpm(char c, va_list pm, int fd, int n);
+//szput_fd
+int		szputpm_fd(int fd, va_list pm, char c, int n);
 //format
 int		format(char c, va_list pm, t_format *f);
 //utils
