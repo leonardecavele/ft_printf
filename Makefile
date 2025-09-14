@@ -6,7 +6,7 @@ CFLAGS = -MMD -MP -Wall -Wextra -Werror -I.
 
 SRCS = \
 	ft_printf.c \
-	szput.c \
+	szput_fd.c \
 	format.c \
 	utils.c
 
