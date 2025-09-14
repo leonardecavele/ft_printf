@@ -6,7 +6,7 @@ CFLAGS = -MMD -MP -Wall -Wextra -Werror -I.
 
 SRCS = \
 	ft_printf.c \
-	ft_printf_utils.c
+	szput.c
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)

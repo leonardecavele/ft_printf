@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   szput.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:52:07 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/12 03:38:53 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 15:00:25 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "ft_printf.h"
 
-int	szputchar(char c)
+static int	szputchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
 
-int	szputstr(const char *s)
+static int	szputstr(const char *s)
 {
 	int	sz;
 
@@ -31,7 +31,7 @@ int	szputstr(const char *s)
 	return (sz);
 }
 
-int	szputnbr(long long n)
+static int	szputnbr(long long n)
 {
 	int		sz;
 	char	c;
@@ -50,7 +50,7 @@ int	szputnbr(long long n)
 	return (sz + 1);
 }
 
-int	szputhex(unsigned long long n, char c, char a)
+static int	szputhex(unsigned long long n, char a, char c)
 {
 	int		sz;
 	char	b[16];
@@ -77,4 +77,28 @@ int	szputhex(unsigned long long n, char c, char a)
 	while (i--)
 		sz += szputchar(b[i]);
 	return (sz);
+}
+
+int	szputpm(va_list pm, char c)
+{
+	int	n;
+
+	n = 0;
+	if (c == 'c')
+		n += szputchar(va_arg(pm, int));
+	else if (c == 's')
+		n += szputstr(va_arg(pm, const char *));
+	else if (c == 'p')
+		n += szputhex((unsigned long long)va_arg(pm, void *), 'a', c);
+	else if (c == 'd' || c == 'i')
+		n += szputnbr((int)va_arg(pm, int));
+	else if (c == 'u')
+		n += szputnbr((unsigned int)va_arg(pm, unsigned int));
+	else if (c == 'x')
+		n += szputhex((unsigned long long)va_arg(pm, unsigned int), 'a', c);
+	else if (c == 'X')
+		n += szputhex((unsigned long long)va_arg(pm, unsigned int), 'A', c);
+	else if (c == '%')
+		n += write(1, "%", 1);
+	return (n);
 }
