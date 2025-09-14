@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 13:37:15 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:51:44 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_printf(const char *s, ...)
 			n += parse((char **)&s, pm, &f);
 		}
 		else
-			n += szputchar(*s, 1);
+			n += write(1, s, 1);
 		if (*s)
 			s++;
 	}

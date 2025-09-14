@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:03:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 13:36:52 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:53:31 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static void	prefix(char c, t_format *f)
 {
 	if (ft_strchr("di", c) && f->v < 0)
-		szputchar('-', 1);
+		write(1, "-", 1);
 	else if (ft_strchr("di", c) && f->flags & FPL)
-		szputchar('+', 1);
+		write(1, "+", 1);
 	else if (ft_strchr("di", c) && f->flags & FSP)
-		szputchar(' ', 1);
+		write(1, " ", 1);
 	if (((c == 'x' && f->flags & FHS) || c == 'p') && f->v)
-		szputnstr("0x", 1, 2);
+		write(1, "0x", 2);
 	else if (c == 'X' && f->flags & FHS && f->v)
-		szputnstr("0X", 1, 2);
+		write(1, "0X", 2);
 }
 
 static int	zer(t_format *f)
@@ -33,10 +33,10 @@ static int	zer(t_format *f)
 	n = 0;
 	if (!(f->flags & FMN) && f->flags & FZR && f->pre < 0)
 		while (f->pad--)
-			n += szputchar('0', 1);
+			n += write(1, "0", 1);
 	else
 		while (f->zer--)
-			n += szputchar('0', 1);
+			n += write(1, "0", 1);
 	return (n);
 }
 
@@ -47,7 +47,7 @@ static int	lpad(t_format *f)
 	n = 0;
 	if (!(f->flags & FMN) && (f->pre > -1 || !(f->flags & FZR)))
 		while (f->pad--)
-			n += szputchar(' ', 1);
+			n += write(1, " ", 1);
 	return (n);
 }
 
@@ -58,7 +58,7 @@ static int	rpad(t_format *f)
 	n = 0;
 	if (f->flags & FMN)
 		while (f->pad--)
-			n += szputchar(' ', 1);
+			n += write(1, " ", 1);
 	return (n);
 }
 

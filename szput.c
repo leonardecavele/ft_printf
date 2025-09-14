@@ -6,20 +6,19 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:52:07 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/14 12:10:31 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:55:12 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
 
-int	szputchar(char c, int fd)
+static int	szputchar(char c, int fd)
 {
 	write(fd, &c, 1);
 	return (1);
 }
 
-int	szputnstr(const char *s, int fd, int n)
+static int	szputnstr(const char *s, int fd, int n)
 {
 	int	sz;
 
@@ -32,7 +31,7 @@ int	szputnstr(const char *s, int fd, int n)
 	return (sz);
 }
 
-int	szputnbr(t_ll n, int fd)
+static int	szputnbr(t_ll n, int fd)
 {
 	int		sz;
 	char	c;
@@ -47,7 +46,7 @@ int	szputnbr(t_ll n, int fd)
 	return (sz + 1);
 }
 
-int	szputhex(t_ull n, char a, int fd, char c)
+static int	szputhex(t_ull n, char a, int fd, char c)
 {
 	int		sz;
 	char	b[16];
