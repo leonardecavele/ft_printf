@@ -6,11 +6,11 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:03:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 10:27:43 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/15 10:42:56 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf_bonus.h"
 
 static void	prefix(char c, t_format *f)
 {

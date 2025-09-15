@@ -6,11 +6,11 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:03:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 10:27:52 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/15 10:43:11 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf_bonus.h"
 
 int	sm_atoii(char **nptr)
 {
