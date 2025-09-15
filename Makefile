@@ -14,7 +14,7 @@ DEPS = $(OBJS:.o=.d)
 BSRCF = bonus
 BSRCS = \
 	$(BSRCF)/ft_printf_bonus.c \
-	$(BSRCF)/szput_fd_bonus.c \
+	$(BSRCF)/szput_en_bonus.c \
 	$(BSRCF)/format_bonus.c \
 	$(BSRCF)/utils_bonus.c
 

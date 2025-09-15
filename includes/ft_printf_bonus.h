@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 10:27:19 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/15 17:46:08 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct t_format
 }			t_format;
 
 int		ft_printf(const char *s, ...);
-//szput_fd
-int		szputpm_fd(int fd, va_list pm, char c, int n);
+//szput_en
+int		szputpm_en(int en, va_list pm, char c, int n);
 //format
 int		format(char c, va_list pm, t_format *f);
 //utils
