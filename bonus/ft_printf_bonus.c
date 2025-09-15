@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 10:43:03 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/09/15 15:29:13 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ static int	parse(char **s, va_list pm, t_format *f)
 		f->wid = sm_atoii(s);
 	if (**s && **s == '.')
 	{
-		(*s)++;
 		f->pre = 0;
-		if (**s && **s >= '0' && **s <= '9')
+		if (*++(*s) && **s >= '0' && **s <= '9')
 			f->pre = sm_atoii(s);
 	}
 	if (ft_strchr("cs%", **s))
@@ -76,9 +75,10 @@ static int	parse(char **s, va_list pm, t_format *f)
 		va_copy(tmp, pm);
 		f->v = value(**s, pm);
 		f->n = szputpm_fd(-1, tmp, **s, 2147483647);
+		n += format(**s, tmp, f);
 		va_end(tmp);
 	}
-	return (n + format(**s, tmp, f));
+	return (n);
 }
 
 int	ft_printf(const char *s, ...)
