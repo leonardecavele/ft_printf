@@ -21,16 +21,35 @@ BSRCS = \
 BOBJS = $(BSRCS:.c=.o)
 BDEPS = $(BOBJS:.o=.d)
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re $(NAME)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+	@if [ -f "$(NAME)" ]; then \
+		if ! ar t "$(NAME)" | grep -qE 'bonus' \
+		&& ! (find $(OBJS) -newer "$(NAME)" -print -quit | grep -q .); then \
+			echo "make: Nothing to be done for 'all'."; \
+		else \
+			rm -f "$(NAME)"; \
+			echo $(AR) $(NAME) $(OBJS); \
+			$(AR) $(NAME) $(OBJS); \
+		fi; \
+	else \
+		echo $(AR) $(NAME) $(OBJS); \
+		$(AR) $(NAME) $(OBJS); \
+	fi
 
 bonus: $(BOBJS)
-	@if [ -f $(NAME) ] && ar t $(NAME) | grep -Eq 'bonus'; then \
-		echo "make: Nothing to be done for 'bonus'."; \
+	@if [ -f "$(NAME)" ]; then \
+		if ar t "$(NAME)" | grep -qE 'bonus' \
+		&& ! (find $(BOBJS) -newer "$(NAME)" -print -quit | grep -q .); then \
+			echo "make: Nothing to be done for 'bonus'."; \
+		else \
+			rm -f "$(NAME)"; \
+			echo $(AR) $(NAME) $(BOBJS); \
+			$(AR) $(NAME) $(BOBJS); \
+		fi; \
 	else \
 		echo $(AR) $(NAME) $(BOBJS); \
 		$(AR) $(NAME) $(BOBJS); \
