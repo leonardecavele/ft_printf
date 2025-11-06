@@ -6,25 +6,25 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 17:31:24 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:41:11 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf_bonus.h"
 
-static t_64	value(char c, va_list pm)
+static int64_t	value(char c, va_list pm)
 {
-	t_64	v;
+	int64_t	v;
 
 	v = 0;
 	if (ft_strchr("cdi", c))
-		v = (t_64)va_arg(pm, int);
+		v = (int64_t)va_arg(pm, int);
 	else if (c == 's')
-		v = (t_64)va_arg(pm, const char *);
+		v = (int64_t)va_arg(pm, const char *);
 	else if (c == 'p')
-		v = (t_64)va_arg(pm, void *);
+		v = (int64_t)va_arg(pm, void *);
 	else if (ft_strchr("uxX", c))
-		v = (t_64)va_arg(pm, unsigned int);
+		v = (int64_t)va_arg(pm, unsigned int);
 	return (v);
 }
 
@@ -74,7 +74,7 @@ static int	parse(char **s, va_list pm, t_format *f)
 	{
 		va_copy(tmp, pm);
 		f->v = value(**s, pm);
-		f->n = szputpm_en(0, tmp, **s, 2147483647);
+		f->n = szputpm_en(0, tmp, **s, INT_MAX);
 		n += format(**s, tmp, f);
 		va_end(tmp);
 	}
