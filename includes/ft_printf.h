@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/05 13:53:08 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:26:03 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <stdarg.h>
 # include <unistd.h>
+
+typedef struct s_printf
+{
+	va_list	pm;
+	int		n;
+	int		cur;
+}			t_printf;
 
 int	ft_printf(const char *s, ...) __attribute__((format(printf, 1, 2)));
 

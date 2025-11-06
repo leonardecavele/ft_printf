@@ -6,15 +6,16 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 16:05:48 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:26:17 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_BONUS_H
 # define FT_PRINTF_BONUS_H
 
-# include <unistd.h>
+# include <stdbool.h>
 # include <stdarg.h>
+# include <unistd.h>
 
 typedef unsigned char		t_u8;
 typedef unsigned long long	t_ull;
@@ -25,6 +26,13 @@ typedef long long			t_ll;
 # define FHS 4
 # define FPL 8
 # define FSP 16
+
+typedef struct s_printf
+{
+	va_list	pm;
+	int		n;
+	int		cur;
+}			t_printf;
 
 typedef struct s_format
 {
