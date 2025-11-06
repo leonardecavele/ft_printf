@@ -6,25 +6,25 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 17:23:02 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:31:24 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf_bonus.h"
 
-static t_ll	value(char c, va_list pm)
+static t_64	value(char c, va_list pm)
 {
-	t_ll	v;
+	t_64	v;
 
 	v = 0;
 	if (ft_strchr("cdi", c))
-		v = (t_ll)va_arg(pm, int);
+		v = (t_64)va_arg(pm, int);
 	else if (c == 's')
-		v = (t_ll)va_arg(pm, const char *);
+		v = (t_64)va_arg(pm, const char *);
 	else if (c == 'p')
-		v = (t_ll)va_arg(pm, void *);
+		v = (t_64)va_arg(pm, void *);
 	else if (ft_strchr("uxX", c))
-		v = (t_ll)va_arg(pm, unsigned int);
+		v = (t_64)va_arg(pm, unsigned int);
 	return (v);
 }
 

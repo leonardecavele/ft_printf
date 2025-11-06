@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 17:26:17 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:30:49 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <unistd.h>
 
 typedef unsigned char		t_u8;
-typedef unsigned long long	t_ull;
-typedef long long			t_ll;
+typedef unsigned long long	t_u64;
+typedef long long			t_64;
 
 # define FMN 1
 # define FZR 2
@@ -42,7 +42,7 @@ typedef struct s_format
 	int		zer;
 	int		pad;
 	int		n;
-	t_ll	v;
+	t_64	v;
 }			t_format;
 
 int		ft_printf(const char *s, ...) __attribute__((format(printf, 1, 2)));
