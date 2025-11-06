@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 16:01:55 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:11:40 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,31 +100,29 @@ static int	szputpm(va_list pm, char c)
 
 int	ft_printf(const char *s, ...)
 {
-	va_list	pm;
-	int		n_ccl;
-	int		n;
+	t_printf	printf;
 
-	n = 0;
-	va_start(pm, s);
+	printf = (t_printf){0};
+	va_start(printf.pm, s);
 	while (*s)
 	{
 		if (*s == '%')
 		{
 			s++;
-			n_ccl = szputpm(pm, *s);
+			printf.cur = szputpm(printf.pm, *s);
 		}
 		else
-			n_ccl = write(1, s, 1);
+			printf.cur = write(1, s, 1);
 		if (*s)
 			s++;
-		if (n_ccl > -1)
-			n += n_ccl;
+		if (printf.cur > -1)
+			printf.n += printf.cur;
 		else
 		{
-			n = -1;
+			printf.n = -1;
 			break ;
 		}
 	}
-	va_end(pm);
-	return (n);
+	va_end(printf.pm);
+	return (printf.n);
 }

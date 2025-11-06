@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 16:04:20 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 17:23:02 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,22 @@ static int	parse(char **s, va_list pm, t_format *f)
 	return (n);
 }
 
+static bool	error(t_printf *printf)
+{
+	printf->n += printf->cur;
+	if (printf->cur > -1)
+		return (0);
+	printf->n = -1;
+	return (1);
+}
+
 int	ft_printf(const char *s, ...)
 {
-	va_list		pm;
+	t_printf	printf;
 	t_format	f;
-	int			n;
-	int			n_ccl;
 
-	n = 0;
-	n_ccl = 0;
-	va_start(pm, s);
+	printf = (t_printf){0};
+	va_start(printf.pm, s);
 	while (*s)
 	{
 		f = (t_format){0};
@@ -99,20 +105,15 @@ int	ft_printf(const char *s, ...)
 		{
 			s++;
 			f.flags = flags((char **)&s);
-			n_ccl = parse((char **)&s, pm, &f);
+			printf.cur = parse((char **)&s, printf.pm, &f);
 		}
 		else
-			n_ccl = write(1, s, 1);
-		if (n_ccl > -1)
-			n += n_ccl;
-		else
-		{
-			n = -1;
+			printf.cur = write(1, s, 1);
+		if (error(&printf))
 			break ;
-		}
 		if (*s)
 			s++;
 	}
-	va_end(pm);
-	return (n);
+	va_end(printf.pm);
+	return (printf.n);
 }
