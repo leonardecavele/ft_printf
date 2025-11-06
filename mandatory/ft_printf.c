@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 10:43:50 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/11/06 10:40:47 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static int	szputstr(const char *s)
 	sz = -1;
 	while (s[++sz])
 		;
-	write(1, s, sz);
-	return (sz);
+	return (write(1, s, sz));
 }
 
 static int	szputnbr(long long n)
@@ -39,8 +38,7 @@ static int	szputnbr(long long n)
 	if (n > 9)
 		sz += szputnbr(n / 10);
 	c = n % 10 + '0';
-	write(1, &c, 1);
-	return (sz + 1);
+	return (sz + write(1, &c, 1));
 }
 
 static int	szputhex(unsigned long long n, char a, char c)
@@ -103,21 +101,26 @@ static int	szputpm(va_list pm, char c)
 int	ft_printf(const char *s, ...)
 {
 	va_list	pm;
+	int		n_ccl;
 	int		n;
 
 	n = 0;
 	va_start(pm, s);
-	while (*s && n > -1)
+	while (*s)
 	{
 		if (*s == '%')
 		{
 			s++;
-			n += szputpm(pm, *s);
+			n_ccl = szputpm(pm, *s);
 		}
 		else
-			n += write(1, s, 1);
+			n_ccl = write(1, s, 1);
 		if (*s)
 			s++;
+		if (n_ccl > -1)
+			n += n_ccl;
+		else
+			return (-1);
 	}
 	va_end(pm);
 	return (n);
