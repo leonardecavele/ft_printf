@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 14:26:18 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 14:33:55 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_printf(const char *s, ...)
 	n = 0;
 	n_ccl = 0;
 	va_start(pm, s);
-	while (*s && n > -1)
+	while (*s)
 	{
 		f = (t_format){0};
 		f.pre = -1;
