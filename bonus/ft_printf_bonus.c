@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 14:33:55 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 16:04:20 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ int	ft_printf(const char *s, ...)
 		if (n_ccl > -1)
 			n += n_ccl;
 		else
-			return (-1);
+		{
+			n = -1;
+			break ;
+		}
 		if (*s)
 			s++;
 	}
