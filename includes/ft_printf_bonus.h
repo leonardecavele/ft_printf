@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 12:49:26 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/06 16:05:48 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef long long			t_ll;
 # define FPL 8
 # define FSP 16
 
-typedef struct t_format
+typedef struct s_format
 {
 	short	flags;
 	int		wid;
