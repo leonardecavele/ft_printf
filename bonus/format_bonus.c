@@ -6,24 +6,28 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:03:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 17:44:30 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:18:15 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf_bonus.h"
 
-static void	prefix(char c, t_format *f)
+static int	prefix(char c, t_format *f)
 {
+	int	n;
+
+	n = 0;
 	if (ft_strchr("di", c) && f->v < 0)
-		write(1, "-", 1);
+		n += write(1, "-", 1);
 	else if (ft_strchr("di", c) && f->flags & FPL)
-		write(1, "+", 1);
+		n += write(1, "+", 1);
 	else if (ft_strchr("di", c) && f->flags & FSP)
-		write(1, " ", 1);
+		n += write(1, " ", 1);
 	if (((c == 'x' && f->flags & FHS) || c == 'p') && f->v)
-		write(1, "0x", 2);
+		n += write(1, "0x", 2);
 	else if (c == 'X' && f->flags & FHS && f->v)
-		write(1, "0X", 2);
+		n += write(1, "0X", 2);
+	return (n);
 }
 
 static int	zer(t_format *f)
@@ -70,26 +74,26 @@ static int	rpad(char c, t_format *f)
 
 int	format(char c, va_list pm, t_format *f)
 {
-	int		n;
+	int	n;
+	int	pre;
 
-	n = 0;
 	if (f->v == 0 && f->pre == 0 && ft_strchr("diuxX", c))
 		f->n = 0;
 	if (c == 's' && f->pre > -1)
 		f->n = min(f->n, f->pre);
+	pre = 0;
 	if (ft_strchr("di", c) && (f->flags & FPL || f->flags & FSP || f->v < 0))
-		n += 1;
-	if (ft_strchr("xX", c) && (f->flags & FHS) && f->v)
-		n += 2;
-	if (c == 'p' && f->v)
-		n += 2;
+		pre = 1;
+	if ((ft_strchr("xX", c) && (f->flags & FHS) && f->v) || (c == 'p' && f->v))
+		pre = 2;
 	if (f->pre > -1 && ft_strchr("diuxX", c))
 		f->zer = max(0, f->pre - f->n);
-	f->pad = max(0, f->wid - (n + f->zer + f->n));
+	f->pad = max(0, f->wid - (pre + f->zer + f->n));
+	n = 0;
 	n += lpad(c, f);
 	if (c == 's' && f->pre > -1 && f->pre < 6 && f->v == 0)
 		return (n);
-	prefix(c, f);
+	n += prefix(c, f);
 	n += zer(f);
 	if (!(ft_strchr("diuxX", c) && f->pre == 0 && f->v == 0))
 		n += szputpm_en(1, pm, c, f->n);

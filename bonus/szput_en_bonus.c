@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:52:07 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/09/15 17:57:30 by ldecavel         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:31:20 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static int	szputchar_en(char c, int en)
 {
 	if (en)
-		write(1, &c, 1);
-	return (1);
+		return (write(1, &c, 1));
+	else
+		return (1);
 }
 
 static int	szputnstr_en(int en, const char *s, int n)
@@ -29,8 +30,9 @@ static int	szputnstr_en(int en, const char *s, int n)
 	while (s[++sz] && sz < n)
 		;
 	if (en)
-		write(1, s, sz);
-	return (sz);
+		return (write(1, s, sz));
+	else
+		return (sz);
 }
 
 static int	szputnbr_en(t_ll n, int en)
@@ -44,8 +46,7 @@ static int	szputnbr_en(t_ll n, int en)
 	if (n > 9)
 		sz += szputnbr_en(n / 10, en);
 	c = n % 10 + '0';
-	szputchar_en(c, en);
-	return (sz + 1);
+	return (sz + szputchar_en(c, en));
 }
 
 static int	szputhex_en(t_ull n, char a, char c, int en)
