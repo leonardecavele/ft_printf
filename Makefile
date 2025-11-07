@@ -44,7 +44,7 @@ bonus: $(BOBJS)
 	@if [ -f "$(NAME)" ]; then \
 		if ar t "$(NAME)" | grep -qE 'bonus' \
 		&& ! (find $(BOBJS) -newer "$(NAME)" -print -quit | grep -q .); then \
-			echo "make: Nothing to be done for 'bonus'."; \
+			echo "make: Nothing to be done for '$@'."; \
 		else \
 			rm -f "$(NAME)"; \
 			echo $(AR) $(NAME) $(BOBJS); \
