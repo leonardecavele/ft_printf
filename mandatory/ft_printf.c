@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/10 16:24:28 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/10 17:12:25 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	szputnbr(int64_t n)
 static int	szputhex(uint64_t n, char a, char c)
 {
 	int		sz;
-	char	buffer[16];
+	char	b[16];
 	int		res;
 	int		i;
 
@@ -60,13 +60,13 @@ static int	szputhex(uint64_t n, char a, char c)
 	{
 		res = (unsigned int)(n & 0xF);
 		if (res < 10)
-			buffer[i++] = '0' + res;
+			b[i++] = '0' + res;
 		else
-			buffer[i++] = a + (res - 10);
+			b[i++] = a + (res - 10);
 		n >>= 4;
 	}
 	while (i--)
-		sz += write(1, &buffer[i], 1);
+		sz += write(1, &b[i], 1);
 	return (sz);
 }
 
