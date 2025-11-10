@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 17:41:54 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/10 16:32:58 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_format
 	int		zer;
 	int		pad;
 	int		n;
-	int64_t	v;
+	int64_t	val;
 }			t_format;
 
 int		ft_printf(const char *s, ...) __attribute__((format(printf, 1, 2)));

@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 17:41:11 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/10 16:33:55 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	parse(char **s, va_list pm, t_format *f)
 	if (ft_strchr("cspdiuxX%", **s))
 	{
 		va_copy(tmp, pm);
-		f->v = value(**s, pm);
+		f->val = value(**s, pm);
 		f->n = szputpm_en(0, tmp, **s, INT_MAX);
 		n += format(**s, tmp, f);
 		va_end(tmp);
