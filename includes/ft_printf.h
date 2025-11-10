@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:09:29 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/06 17:26:03 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/10 16:22:26 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <stdint.h>
 # include <unistd.h>
 
 typedef struct s_printf
