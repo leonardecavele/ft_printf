@@ -37,6 +37,7 @@ bonus:
 	@$(MAKE) $(NAME) SRCS="$(BSRCS)" --no-print-directory
 
 $(NAME): $(OBJS)
+	@rm -f $(NAME)
 	$(AR) $(NAME) $(OBJS)
 
 $(BUILD)/%.o: %.c
