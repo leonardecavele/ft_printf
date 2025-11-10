@@ -8,6 +8,9 @@ BUILD = build
 CFLAGS = -MMD -MP -Wall -Wextra -Werror -I includes
 MAKEFLAGS+= -j $$(nproc)
 
+.PHONY: all bonus clean fclean re
+-include $(DEPS)
+
 # files
 SRCF = mandatory
 SRCS =\
@@ -22,9 +25,7 @@ BSRCS =\
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 DEPS = $(OBJS:.o=.d)
 
-.PHONY: all bonus clean fclean re
--include $(DEPS)
-
+# rules
 all:
 	@rm -rf $(BUILD)/$(BSRCF)
 	@mkdir -p $(BUILD)/$(SRCF)
