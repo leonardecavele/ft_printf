@@ -6,13 +6,13 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:38:50 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/11/10 17:13:05 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2025/11/11 13:48:54 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf_bonus.h"
 
-static int64_t	vue(char c, va_list pm)
+static int64_t	value(char c, va_list pm)
 {
 	int64_t	v;
 
@@ -73,7 +73,7 @@ static int	parse(char **s, va_list pm, t_format *f)
 	if (ft_strchr("cspdiuxX%", **s))
 	{
 		va_copy(tmp, pm);
-		f->v = vue(**s, pm);
+		f->v = value(**s, pm);
 		f->n = szputpm_en(0, tmp, **s, INT_MAX);
 		n += format(**s, tmp, f);
 		va_end(tmp);
