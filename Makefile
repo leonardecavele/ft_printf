@@ -8,9 +8,6 @@ BUILD = build
 CFLAGS = -MMD -MP -Wall -Wextra -Werror -I includes
 MAKEFLAGS+= -j $$(nproc)
 
-.PHONY: all bonus clean fclean re
--include $(DEPS)
-
 # files
 SRCF = mandatory
 SRCS =\
@@ -51,3 +48,6 @@ fclean: clean
 
 re: fclean
 	@$(MAKE) all --no-print-directory
+
+.PHONY: all bonus clean fclean re
+-include $(DEPS)
